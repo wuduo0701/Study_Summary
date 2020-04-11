@@ -9,9 +9,9 @@ Array.prototype.mymap = function(cb, cbthis) {
   // for(let i = 0; i< this.length; i++){   //使用for循环来模拟map
   //   t.push(cb(this[i]))
   // }
-  // let CBThis = cbthis || null;
+  let CBThis = cbthis || null;
   return this.reduce((acc,...args) => {
-    let res = cb(...args)
+    let res = cb.call(CBThis, ...args)
     return acc.concat(res)
   }, [])
   // return t;
