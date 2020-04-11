@@ -7,3 +7,7 @@
 
 ## js底层
   - this
+  - call
+  - async + await promise generator
+
+## webpack  前端工程化

@@ -10,3 +10,11 @@
  2. webpack 重要性
  3. base.js 同时服务 dev.js build.js  模块化
  把基础配置做好 ， 向外输出， 
+
+
+ 6. 可拔插的webpack 插件
+ - babel
+  js ts 
+ - css  压缩  stylus -> css
+ postcss?
+ - htmltemplate
