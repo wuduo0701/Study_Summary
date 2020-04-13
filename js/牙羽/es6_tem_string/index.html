@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let x = 1,y = 2;
+    let arr = [{value: 1}, {value: 2}];
+    // 模板字符串支持嵌套
+    let message = `
+        <ul>
+          <li>${ x }</li>
+          <li>${ y }</li>
+          ${arr.map(item => {
+            return `
+              <li>${ item.value }</li>
+            `
+          }).join('')}
+        </ul>
+    ` 
+    console.log(message)
+  </script>
+</body>
+</html>
