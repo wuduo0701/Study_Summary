@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function foo() {
+      var a = 123;
+      return function() {
+        let b = a;
+        // let b = 123
+        debugger;
+        // 函数里套函数 ，并不会形成闭包(let b = 123)
+        // 函数里套函数，且引用了外部的自由变量，这样会形成闭包
+        // 既不是函数参数，也不是函数的局部变量，而是一个不属于当前作用域的变量
+        // 对于此事的作用域，就是自由变量
+      }
+    }
+    foo()();
+  </script>
+</body>
+</html>
