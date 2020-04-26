@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>垂直水平居中</title>
+  <style>
+    .div1{
+      width: 200px;
+      height: 200px;
+      background-color: green;
+      /*使用position：absolute绝对定位和magin：auto
+        另外 要上下左右分别为0
+      */
+      position: absolute;
+      left:0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+    .div2{
+      width:200px;
+      height: 200px;
+      background:red;
+      /* 绝对定位+transform  */
+      /* 用了position时，并不是真正的居中，还需要减去自生的50%的距离，所以用transform来减去这部分才能实现垂直居中 */
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform:translate(-50%, -50%); 
+    }
+    .div3{
+      width:200px;
+      height: 200px;
+      background:blue;
+      /* 绝对定位+负margin  */
+      /* 但是需要指定元素的宽高 */
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -100px;
+      margin-top: -100px;
+    }
+    .div4{
+      width:200px;
+      height: 200px; 
+      background:blue;
+      /* flex实现垂直水平居中 ，但是需要在一个盒子里*/
+      display:flex;
+      justify-content:center;  
+      /* //子元素水平居中 */
+      align-items:center;      
+      /* //子元素垂直居中 */
+      /* aa只要三句话就可以实现不定宽高水平垂直居中。 */
+    }
+  </style>
+</head>
+<body>
+  <!-- <div class="div1"></div> -->
+  <!-- <div class="div2"></div> -->
+  <!-- <div class="div3"></div> -->
+  <div class="div4"></div>
+</body>
+</html>
