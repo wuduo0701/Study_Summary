@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="unDebounce">
+    <text>没有防抖的input</text>
+    <input type="text">
+  </div>
+  <div id="Debounce">
+    <text>防抖的input</text>
+    <input type="text">
+  </div>
+  <script>
+    function ajax(content) {    //普通的请求
+      console.log('request请求：' + content)
+    }
+    let input1 = document.getElementById('unDebounce');
+    input1.addEventListener('keyup', function (e) {
+      ajax(e.target.value)
+    })  
+
+    function Debounce(fun, delay){    //防抖的函数
+      return (args) => {
+        clearTimeout(fun.id)    //清除之前定义的settimeout函数
+        fun.id = setTimeout(function () {
+            fun.call(this, args)
+        }, delay)
+      }
+    }
+    let input2 = document.getElementById('Debounce');
+    DebounceAjzx = Debounce(ajax, 2000);
+    input2.addEventListener('keyup', function (e) {
+      DebounceAjzx(e.target.value)
+    })  
+    // function fandou(fun, delay) {
+    //   return (args) => {
+    //     clearTimeout(fun.id);
+    //     fun.id = setTimeout(() => {
+    //       fun.call(this, args)
+    //     }, delay)
+    //   }
+    // }
+  </script>
+</body>
+</html>
