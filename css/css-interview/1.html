@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css4 variable </title>
+  <style>
+  :root {  /*定义变量的地方   css in js  bg_color = #123123*/
+    --bgcolor: blue;
+    --color: red;
+  }
+  div {
+    background-color: var(--bgcolor);
+    color: var(--color);
+  }
+  .box {
+    --base-size: 10;
+    width: calc(var(--base-size)*10px); /*90%宽度*/
+    height: calc(var(--base-size)*5px);
+    padding: calc(var(--base-size)*1px);
+    background-color: red;
+  }
+  /*移动端时， 盒子变小，变为原来的0.8倍*/
+  /* 媒体查询 */
+  @media screen and (max-width: 800px){
+    .box {
+      --base-size: 8;
+    }
+  }
+  </style>
+</head>
+<body>
+  <div class="box">
+    
+  </div>
+  <script>
+    setTimeout(() => {
+      document.querySelector('.box').style.setProperty('--base-size', 20)
+    }, 1000)
+  </script>
+</body>
+</html>
