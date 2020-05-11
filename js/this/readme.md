@@ -11,7 +11,7 @@ new > call/apply/bind > 对象.foo > 全局
 
 ## bind
 
-```
+```js
 function Animal(name, color) {
   this.name = name;
   this.color = color;
