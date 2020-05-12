@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function foo() {
+      return 'foo';
+    }
+    //调用 Generator 函数，该函数并不会执行，返回的并不是函数的结果，而是返回指向内部的指针对象
+    //yeild 表达式试暂停执行的标志，而next则是恢复执行，
+    // 函数从头开始读，直到遇到yeild停止，next则恢复执行，直到下一个yeild，以此往复
+    function* test() {
+      console.log('start')
+      let a = yield foo();
+      // return 4
+      //yeild本身没有返回值，即总是返回undefined
+      console.log('a', a);
+      let b = yield 2;
+      console.log('b', b);
+    }
+    // let g = test();
+    // //第一个next因为前面没有yeild，传参传不了,即 c value显示不出来
+    // console.log(g.next('c value'));
+    // // next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值。
+    // console.log(g.next('b value'));
+    // console.log(g.next('a value'));
+
+    //generator自动运行函数，即不用遇到next才能执行
+    function generateAutoRun(gen) {
+      let g = gen();
+      function next(value) {
+        let res = g.next(value);
+        if (res.done) return;
+        next(res.value);
+      }
+      next();
+    }
+    generateAutoRun(test);
+  </script>
+</body>
+</html>

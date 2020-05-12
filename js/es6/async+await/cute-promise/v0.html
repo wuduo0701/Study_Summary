@@ -1,0 +1,37 @@
+<script>
+  function CutePromise(executor) {
+    this.status = 'pending';
+    this.value = null;
+    let self = this;
+    this.reason = null;
+    function resolve(val) {
+      self.status = 'fulfilled';
+      self.value = val;
+      console.log('val', val);
+    }
+    function reject(reason) {
+      self.status = 'rejected';
+      self.reason = reason;
+    }
+    executor(resolve, reject);
+  }
+  CutePromise.prototype.then = function(onFulfilled, onRejected) {
+    let self = this;
+    if(self.status === 'fulfilled'){
+      onFulfilled(self.value);
+    }else if(self.status === 'rejected') {
+      onRejected(self.reason);
+    } 
+  }
+//初级版promise ， 异步代码会出错
+  new CutePromise((resolve, reject) => {
+    // console.log(resolve, reject);
+    // resolve(1)
+    setTimeout(() => {
+      resolve(1)
+    }, 2000)
+  })
+  .then((val) => {
+    console.log(val)
+  })
+</script>
