@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue中的动画原理</title>
+  <script src='./vue.js'></script>
+</head>
+<body>
+  <div id="root">
+    <div v-if="show">hello world</div>
+    <button @click="handleClick">切换</button>
+  </div>
+  <script>
+    var root = new Vue({
+      el: '#root',
+      data: {
+        show: true
+      },
+      methods: {
+        handleClick(){
+          this.show = !this.show;
+        }
+      }
+    })
+  </script>
+</body>
+</html>
