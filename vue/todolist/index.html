@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src='./vue.js'></script>
+</head>
+<body>
+  <div id="app">
+    <!-- @click.native监听元生组件 -->
+    <div @click.native="handleclick">
+      {{content}}
+    </div>
+    <item></item>
+  </div>
+  <script>
+    //挂载组件实例
+    Vue.component('item', {
+      template: '<div>hello</div>',
+      methods: {
+        clickshow: function() {
+          alert('child');
+          this.$emit('click')
+        }
+      }
+    })
+    //vue实例,根实例
+    var app = new Vue({
+      el: '#app',
+      data: {
+        content: 'hello world1'
+      },
+      methods:{
+        handleclick: function() {
+          alert('hello world')
+        }
+      }
+    })
+    setTimeout(function() {
+      app.$data.content = 'bye world'
+    }, 2000)
+  </script>
+</body>
+</html>

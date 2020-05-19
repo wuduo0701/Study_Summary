@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>非父子组件传值(总线/发布订阅者模式/观察者模式)</title>
+  <script src='./vue.js'></script>
+</head>
+<body>
+  <div id="app">
+    <child content="LIN"></child>
+    <child content="JIA"></child>
+    <child content="HAO"></child>
+  </div>
+  <script>
+    Vue.prototype.bus = new Vue();
+    Vue.component('child', {
+      data: function() {
+        return {
+          selfContent: this.content
+        }
+      },
+      props: {
+        content: String
+      },
+      template: '<div @click="handleClick">{{selfContent}}</div>',
+      methods: {
+        handleClick: function() {
+          // alert(this.content);
+          console.log(this.bus)
+          this.bus.$emit('change', this.selfContent)
+        },
+      },
+      mounted: function() {
+        var _this = this;
+        this.bus.$on('change', function(msg) {
+          // alert(msg)
+          _this.selfContent = msg
+        })
+      }
+    })
+    var app = new Vue({
+      el: '#app'
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>slot插槽</title>
+  <script src='./vue.js'></script>
+</head>
+<body>
+  <div id="app">
+    <child>
+      <!-- 具名插槽 -->
+      <div class="header" slot="header">header</div>
+      <div class="footer" slot="footer">footer</div>
+    </child>
+    <list>
+      <template slot-scope="props">
+        <li>{{props.item}}</li>
+      </template>
+    </list>
+  </div>
+  <script>
+    Vue.component('child', {
+      props:[
+        'content'
+      ],
+      template: `
+        <div>
+          <slot name="header"></slot>
+          <div class="content">content</div>
+          <slot name="footer"></slot>
+        </div>
+      `
+    }),
+    Vue.component('list', {
+      data: function() {
+        return {
+          list: [1, 2, 3, 4]
+        }
+      },
+      template: `
+      <div>
+        <ul>
+          <slot  v-for="item in list" :item=item>
+            {{item}}
+          </slot>
+        </ul>
+      </div>
+      `
+    })
+    var app = new Vue({
+      el: '#app'
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>计算属性computed</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{fullName}}
+    {{Name()}}
+    {{age}}
+    {{Name1}}
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        firstName: 'Lin',
+        secondName: 'Jia',
+        thirdName: 'Hao',
+        Name1: 'LinJiaHao',
+        age: 18
+      },
+      computed: {
+        //计算属性是一个函数
+        // 计算结果会被缓存，除非属性发生了改变才会从新计算
+        //  否则会一直取上一次计算的结果，
+        // 这样更优化
+        // fullName: function() {
+        //   console.log("一次")
+        //   return this.firstName + this.secondName + this.thirdName;
+        // }
+          fullName: {
+            get: function() {
+              return this.firstName + this.secondName + this.thirdName;
+            },
+            set: function() {
+              this.firstName = 'Mike'
+            }
+          }
+      },
+      methods: {
+        // 而在methods里，不会进行缓存，每一次数据改变都会重新计算
+        // 不利于性能
+        Name: function() {
+          console.log("方法一次")
+          return this.firstName + this.secondName + this.thirdName;
+        }
+      },
+      // 监听器
+      watch: {
+        firstName: function() {
+          console.log("firstname一次")
+          this.Name1 = this.firstName + this.secondName + this.thirdName;
+        },
+        secondName: function() {
+          console.log("secondName一次")
+          this.Name1 = this.firstName + this.secondName + this.thirdName;
+        },
+        thirdName: function() {
+          console.log("thirdName一次")
+          this.Name1 = this.firstName + this.secondName + this.thirdName;
+        },
+      }
+    })
+  </script>
+</body>
+</html>
