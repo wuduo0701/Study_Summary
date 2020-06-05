@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <img  id="qrcode">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+  let host = 'http://localhost:8888';
+  let qrcodeId = '5ed9f4d0a583831224576604';
+  let interval = null;
+  // 轮询
+  //  简单的轮询可以用setInterval实现
+  //  深层次的轮询可以用websocket来实现
+  function checkQRcode() {
+    let url = `${host}/qrcode/gene`;
+    return axios.get(url)
+      .then(res => {
+        return res.data
+      })
+      .catch(err => {
+        return err
+      })
+  }
+  function geneQRCode() {
+    let url = `${host}/qrcode/gene`;
+    return axios.get(url)
+      .then(res => {
+        return res.data
+      })
+      .catch(err => {
+        return err
+      })
+  }
+  // geneQRCode()
+  //   .then(data => {
+  //     // console.log(data);
+  //     qrcodeId = data.data.qrcodeId;
+  //     const oImg = document.getElementById('qrcode');
+  //     oImg.onload = function() {
+  //       // 等待用户来扫一扫
+  //     }
+  //     oImg.src = data.data.qrcodeUrl
+
+  //   })
+
+  //  轮询 检查用户有没有扫码？ 有没有授权？
+  //  页面上动态变化
+  setInterval(() => {
+    checkQRcode()
+      .then(data => {
+        const qrcodeData = data.data;
+        if(qrcodeData.success) {
+          console.log('登录授权成功, 跳转中...');
+          localStorage.setItem('token', qrcodeData.userInfo.token);
+          return;
+        }
+        if (qrcodeData.scanned) {
+          console.log('扫码中')
+        }
+        if(qrcodeData.expired) {
+          console.log('已过期, 请刷新')
+        }
+      })
+  }, 3000);
+  </script>
+</body>
+</html>
