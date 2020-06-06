@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p id="p">{{msg}}</p>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data () {
+        return {
+          msg: 'hi'
+        }
+      },
+      methods: {
+        show() {
+          console.log(document.getElementById('p').innerText)
+        }
+      },
+      // 已经完成了模板的编译，但是还未挂载到页面上
+      // 该钩子在服务器端渲染期间不被调用。
+      beforeMount() {
+        console.log('beforeMount函数')
+        this.show()   //显示为{{msg}},
+      }
+    })
+  </script>
+</body>
+</html>

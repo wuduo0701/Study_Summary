@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p id="p">{{msg}}</p>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data () {
+        return {
+          msg: 'hi'
+        }
+      },
+      methods: {
+        show() {
+          console.log(document.getElementById('p').innerText)
+        }
+      },
+      // 实例已经被挂载到页面上，且el会被新创建的vm.$el替换
+      // 注意：mounted生命周期 并不会保证所有的子组件也都一起被挂载
+      mounted() {
+        console.log('mounted函数')
+        this.show()   //显示为hi
+        console.log(this.$el) //#app整个元素
+      }
+    })
+  </script>
+</body>
+</html>

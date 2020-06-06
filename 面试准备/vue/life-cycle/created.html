@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <!-- 实例已完成以下的配置：数据观测 (data observer)，property 和方法的运算，watch/event 事件回调 -->
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          msg: 'hi'
+        }
+      },
+      methods: {
+        show() {
+          console.log('show')
+        }
+      },
+      created() {
+        this.show() //show
+        console.log(this.msg)   //msg
+      }
+    })
+  </script>
+</body>
+</html>
