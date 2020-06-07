@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h3 id="msg">{{msg}}</h3>
+    <button @click="change">修改msg</button>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data () {
+        return {
+          msg: "hi"
+        }
+      },
+      methods: {
+        change() {
+          this.msg = "hello"
+        }
+      },
+      beforeUpdate() {
+        console.log('beforeUpdate调用');
+        console.log("dom上的数据："+document.getElementById('msg').innerText)   //取得了hi，还是更新前的数据
+        console.log("data中的数据："+this.msg)    //数据为hello，证明了data数据是最新的，页面还未和最新数据同步，适合在更新之前访问现在的DOM
+      }
+    }) 
+  </script>
+</body>
+</html>

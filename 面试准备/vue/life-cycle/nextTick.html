@@ -8,21 +8,39 @@
 </head>
 <body>
   <div id="app">
-    <p id="p">{{msg}}</p>
+    <div ref="msgDiv">{{msg}}</div>
+    <div v-if="msg1">Message got outside $nextTick: {{msg1}}</div>
+    <div v-if="msg2">Message got inside $nextTick: {{msg2}}</div>
+    <div v-if="msg3">Message got outside $nextTick: {{msg3}}</div>
+    <button @click="changeMsg">
+      Change the Message
+    </button>
   </div>
   <script>
     var vm = new Vue({
       el: '#app',
       data () {
         return {
-          msg: 'hi'
+          msg: 'hi',
+          msg1: '',
+          msg2: '',
+          msg3: ''
         }
       },
       methods: {
         show() {
           console.log(document.getElementById('p').innerText)
+        },
+        changeMsg() {
+          this.msg = "Hello world."
+          this.msg1 = this.$refs.msgDiv.innerHTML   //显示为hi，数据未更新
+          this.$nextTick(() => {
+            this.msg2 = this.$refs.msgDiv.innerHTML //可以提前拿到更新的DOM，只是还未渲染到页面，因为Vue在更新DOM时异步更新的
+                                                    //并不是数据一改变DOM就进行更新，Vue会开启一个队列，就比如一个步骤条次打开对话框都想触发步骤1的动作。如果直接写step=0;step=1;是不会有变化的，因为整个函数执行完之前DOM都不会刷新。把step=1放到nextTick里就可以了
+          })
+          this.msg3 = this.$refs.msgDiv.innerHTML
         }
-      },
+      }
     })
     vm.msg = 'hello'
     console.log(vm.$el.textContent === 'hello')   //false 证明vue的数据更新不是立即执行的

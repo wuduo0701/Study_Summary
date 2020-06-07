@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h3 id="msg">{{msg}}</h3>
+    <button @click="change">修改msg</button>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data () {
+        return {
+          msg: "hi"
+        }
+      },
+      methods: {
+        change() {
+          this.msg = "hello"
+        }
+      },
+      //updated 不会保证所有的子组件也都一起被重绘。如果你希望等到整个视图都重绘完毕，可以使用nextTick取得最新的DOM
+      updated() {
+        console.log('updated');
+        console.log("dom上的数据："+document.getElementById('msg').innerText)   //取得了hello，数据已经完成更新
+        console.log("data中的数据："+this.msg)    //数据为hello，页面和 data 数据已经保持同步了，都是最新的。
+      }
+    }) 
+  </script>
+</body>
+</html>
