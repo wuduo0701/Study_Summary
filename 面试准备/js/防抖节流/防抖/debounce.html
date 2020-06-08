@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="inp">
+  <script>
+    function debounce(fn) {
+      let timeout = null;
+      return function() {
+        clearTimeout(timeout);
+        console.log("前面的"+timeout)
+        timeout = setTimeout(() => {
+          fn.apply(this, arguments);
+        }, 500);
+        console.log("后面的"+timeout)
+      }
+    }
+    function sayHi() {
+      console.log('防抖成功');
+    }
+
+    var inp = document.getElementById('inp');
+    inp.addEventListener('input', debounce(sayHi)); // 防抖
+  </script>
+</body>
+</html>
