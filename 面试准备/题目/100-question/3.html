@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    防抖：
+    <input type="text" id="debounce">
+  </div>
+  <div>
+    节流:
+    <input type="text" id="throttle">
+  </div>
+  <script>
+    // 防抖 
+  function debounce(fn) {
+    let timeout = null;
+    return function() {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        fn.apply(this, arguments);
+      }, 500)
+    }
+  }
+  function throttle(fn) {
+    let flag = true;
+    return function() {
+      if(!flag) return;
+      flag = false;
+      setTimeout(() => {
+        fn.apply(this, arguments)
+        flag = true;
+      }, 1000)
+    }
+  }
+  function say1() {
+    console.log('防抖')
+  }
+  function say2() {
+    console.log('节流')
+  }
+  let el1 = document.getElementById('debounce');
+  el1.addEventListener('input', debounce(say1))
+
+  let el2 = document.getElementById('throttle');
+  el2.addEventListener('input', throttle(say2))
+  </script>
+</body>
+</html>
