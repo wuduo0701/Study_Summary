@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    防抖函数：
+    <input type="text" id="el1">
+  </div>
+  <div>
+    节流函数：
+    <input type="text" id="el2">
+  </div>
+  <script>
+  function debounce(fn) {
+    let timeout = null;
+    return function() {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        fn.call(fn, arguments);
+      }, 500)
+    }
+  }
+  function throttle(fn) {
+  //  定义一个标志为true
+  let flag = true;
+  return function() {
+    // 如果为flag为false，直接return
+    if(!flag) return;
+    // 不是的话又设为false
+    flag = false;
+    setTimeout(() => {
+      fn.call(this, arguments);
+      // 又设为true
+      flag = true;
+    }, 2200)
+  }
+}
+  function say1() {
+    console.log('防抖')
+  }
+  function say2() {
+    console.log('节流')
+  }
+  var el1 = document.getElementById('el1');
+  var el2 = document.getElementById('el2');
+  
+  el1.addEventListener('input', debounce(say1));
+  el2.addEventListener('input', throttle(say2));
+  </script>
+</body>
+</html>
