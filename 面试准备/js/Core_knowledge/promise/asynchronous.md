@@ -11,6 +11,12 @@ Promise 对象是一个代理对象,他有三种状态:
 2. fulfilled  表示处理成功
 3. rejected 表示处理失败
 
+### promise 和 async/await 的区别
+1. 首先promise 和async， await函数都是解决异步编程的方法，但是async和await函数很大的的特点就是让异步代码看起来像同步代码，只需要在函数前加一个async来标记这是一个异步函数，隐含着函数会返回一个Promise
+2. await函数必须在async的后面，不能单独使用，不能在顶层
+3. promise的使用可能会嵌套大量的.then函数来处理Promise，而async/await则直接在代码按顺序上处理结果，代码量减少的同时，显得更简洁。
+4. promise.then里的回调函数会放到相应宏任务的微任务队列里，等宏任务里面的同步代码执行完再执行；async函数表示函数里面可能会有异步方法，await后面跟一个表达式，async方法执行时，遇到await会立即执行表达式，然后把表达式后面的代码放到微任务队列里，让出执行栈让同步代码先执行。
+
 注: Promise实例的状态是可以改变的，但它只允许被改变一次,即pending到fulfilled后就不会改变
 #### promise的使用
 - Promise.resolve()  Promise.resolve(1) 的状态一直都是fulfilled， 会把参数直接传给后面使用他的函数
