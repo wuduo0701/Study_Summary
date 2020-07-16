@@ -1,10 +1,24 @@
+## React 与 Vue的区别
+- 相同点
+1. 数据驱动页面，提供响应式的试图组件
+2. 都有virtual DOM,组件化的开发，通过props参数进行父子之间组件传递数据，都实现了webComponents规范
+3. 数据流动单向，都支持服务器的渲染SSR
+4. 都有支持native的方法，react有React native， vue有wexx
+- 不同点
+1. 数据绑定：Vue实现了双向的数据绑定，react数据流动是单向的
+2. 数据渲染：大规模的数据渲染，react更快
+3. 使用场景：React配合Redux架构适合大规模多人协作复杂项目，Vue适合小快的项目
+4. 开发风格：react推荐做法jsx + inline style把html和css都写在js了
+  vue是采用webpack + vue-loader单文件组件格式，html, js, css同一个文件
+
+  
 ## 介绍下MVVM(数据的双向绑定）
 M: Model数据模型
 V：View视图层
 VM：ViewModel Model和view之间的桥梁
 实现了数据的双向绑定
 
-## Vue如何实现双向数据绑定的？
+## Vue如何实现双向数据绑定的(原理)？
 
 核心就是数据劫持 + 发布/订阅者模式：vue使用的是Object.defineProperty()通过监听他的get/set事件，监听对数据的操作，从而触发数据同步
 - 步骤
@@ -57,7 +71,7 @@ Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。每一个 
 5. Module：允许将单一的 Store 拆分为多个 store 且同时保存在单一的状态树中。
 
 ## v-if和v-show的区别
-v-if是真正大的条件渲染，它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建
+v-if是真正的条件渲染，它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建
 v-show只是组件显示不显示，就是display:none,属性的切换。
 
 ## v-model的原理
@@ -76,3 +90,26 @@ v-model本质上是一个语法糖，我们一般在表单 input、textarea、se
 1. **保证性能下限**： 框架的虚拟 DOM 需要适配任何上层 API 可能产生的操作，它的一些 DOM 操作的实现必须是普适的，所以它的性能并不是最优的；但是比起粗暴的 DOM 操作性能要好很多，因此框架的虚拟 DOM 至少可以保证在你不需要手动优化的情况下，依然可以提供还不错的性能，即保证性能的下限；
 2. **无需手动操作 DOM**： 我们不再需要手动去操作 DOM，只需要写好 View-Model 的代码逻辑，框架会根据虚拟 DOM 和 数据双向绑定，帮我们以可预期的方式更新视图，极大提高我们的开发效率；
 3. **跨平台**： 虚拟 DOM 本质上是 JavaScript 对象,而 DOM 与平台强相关，相比之下虚拟 DOM 可以进行更方便地跨平台操作，例如服务器渲染、weex 开发等等。
+
+## methods、computed和watch的区别
+1. methods
+写方法，主要用来写业务逻辑的，数据量大，需要缓存，可以用computed，每次都需要重新加载，不需要缓存，则用methods
+2. computed
+计算的结果会被缓存，除非依赖的属性也发生了改变才会重新计算。
+3. watch
+是一个对象，键是需要观察的表达式，值是对应的回调函数，监听某些数据的变化从而进行相应的业务逻辑
+
+## Vue 的父组件和子组件生命周期钩子函数执行顺序？
+
+1. 加载渲染过程
+父 beforeCreate -> 父 created -> 父 beforeMount -> 子 beforeCreate -> 子 Created  -> 子 beforeMounted -> 子 mounted -> 父
+
+2. 子组件更新过程
+父 beforeUpdate -> 子 beforeUpdate -> 子 updated -> 父 updated
+
+3. 父组件更新过程
+父 beforeUpdate -> 父 updated
+
+4. 销毁过程
+父 beforeDestroy -> 子 beforeDestroy -> 子 destroyed -> 父 destroyed
+
