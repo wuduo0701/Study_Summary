@@ -8,4 +8,4 @@ function getParams(url) {
   return res;
 }
 
-console.log(getParams("www.baidu.com?a=1&b=2"))
+console.log(getParams("www.baidu.com?a=1&b=2"));
